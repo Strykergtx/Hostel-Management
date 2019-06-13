@@ -27,19 +27,29 @@ public class Hostel{
                System.out.println(e);
                
            }finally{
-               out.close();
+              out.close();
+              
            }
 	   }
-	   public static boolean readData(String name) {
+	   @SuppressWarnings("finally")
+	public static boolean readData(String name) {
+		   int stat=0;
 		   try{
 	             BufferedReader br = new BufferedReader(new FileReader("hostel.txt"));
 	               String line = null;
-	            
+	              //stat =0;
 	               //write your code here !!!
 	               while ((line = br.readLine()) != null) {
 		               String[] splited = line.split("\\s+");
 		               String checkName = splited[0];
 		               //write your code here !!!
+		              if(checkName.compareTo(name)==0)
+		              { stat=-1;
+		                  break;
+		              }
+		                  else
+		              continue;  	  
+		              
 //		               compare check name with name and return true if present and false if not
 	               }
 	               
@@ -47,11 +57,22 @@ public class Hostel{
 	            }catch(Exception e){
 	                System.out.println(e);
 	            }
-			return true;
+			
+				
+			if(stat==-1)
+				return true;
+			else
+			  return false;		
+			
 	   }
        public static void allotHostel(){
-    	   //write your code here!!!
-    	   
+    	   try
+    	   {
+    		   writedata();
+    	   }catch(IOException e)
+    	   {
+    		   System.out.println(e);
+    	   }
        }
 
        public static boolean verifyStudent(int regNo){
@@ -75,7 +96,8 @@ public class Hostel{
        public static boolean verifyName(String name){
     	   boolean chk = true;
     	   
-    	   //write your code here
+    	   chk=readData(name);
+    	   
     	   
     	   return chk;
         }
